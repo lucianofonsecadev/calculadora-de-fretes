@@ -35,7 +35,7 @@ inputDistancia.addEventListener("change", () => {
         const valorPorKm = 4;
         const total = fixo + (km * valorPorKm);
 
-        console.log(`O valor aproximado é R$ ${total}`)
+        console.log(`O valor aproximado é ${total}`)
 
         resumoDistancia.innerText = inputDistancia.value;
     }
@@ -72,4 +72,3 @@ formulario.addEventListener("submit", (evento) => {
 
     window.open(`https://wa.me/${numWhats}?text=${mensagem}`, "_blank");
 });
-
