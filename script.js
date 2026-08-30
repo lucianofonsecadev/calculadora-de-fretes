@@ -103,7 +103,7 @@ function atualizarAjuda() {
     if (radioMarcado) {
         resumoAjuda.innerText = radioMarcado.value;
     }
-}
+};
 
 // Fica escutando a troca de clique nos botões de rádio
 radiosAjuda.forEach(radio => {
@@ -124,14 +124,14 @@ function atualizarDataHora() {
     } else {
         dataHora.innerText = "-"
     }
-}
+};
 
 data.addEventListener("change", atualizarDataHora)
 hora.addEventListener("change", atualizarDataHora)
 
 
 
-// MANIPULANDO O FORMULÁRIO PARA ENVIAR AO WHATSAPP
+// MANIPULANDO O FORMULÁRIO PARA ENVIAR AO WHATSAPP ^^
 const formulario = document.getElementById("formulario-frete");
 
 formulario.addEventListener("submit", (evento) => {
