@@ -1,39 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Expanded:wght@700;800;900&display=swap');
+
 /* ==========================================================================
    CONFIGURAÇÕES GLOBAIS & VARIÁVEIS (ROOT)
    ========================================================================== */
 :root {
-    --verde-primario: #16a34a;
-    --verde-hover: #15803d;
-    --verde-claro: #f0fdf4;
-    --verde-borda: #bbf7d0;
+    /* Papel / kraft */
+    --kraft-bg: #efe4cf;
+    --paper: #fffcf6;
+    --paper-alt: #f8f0dd;
+    --line: #dbc9a3;
+    --line-soft: #e9dcbd;
 
-    --cor-escura: #0f172a;
-    --cor-texto: #475569;
-    --cor-suave: #94a3b8;
+    /* Tinta */
+    --ink-900: #221c14;
+    --ink-700: #4a4030;
+    --ink-500: #7a6e58;
+    --ink-300: #a99c82;
 
-    --fundo-pagina: #f8fafc;
-    --fundo-cartao: #ffffff;
-    --cor-borda: #e2e8f0;
+    /* Fita laranja — cor de ação, usada com moderação */
+    --tape: #dd551b;
+    --tape-dark: #ac400f;
+    --tape-tint: #fbe1d0;
 
-    --arredondamento-grande: 20px;
-    --arredondamento-medio: 14px;
-    --arredondamento-pequeno: 10px;
+    /* Aço — cor de seleção/estado ativo */
+    --steel: #2e4457;
+    --steel-dark: #1f3040;
+    --steel-tint: #dde5eb;
 
-    --sombra-cartao: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    --sombra-foco: 0 0 0 4px rgba(22, 163, 74, 0.12);
+    /* Alerta */
+    --stamp-red: #a5332a;
+    --stamp-red-tint: #f8e3e0;
+
+    /* Raios — mais retos, "de caixa", não bolha */
+    --r-lg: 10px;
+    --r-md: 8px;
+    --r-sm: 5px;
+
+    /* Sombra dura, tipo cartão carimbado */
+    --shadow-card: 0 2px 0 var(--line), 0 12px 22px -14px rgba(34, 28, 20, 0.28);
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Archivo', sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    background-color: var(--fundo-pagina);
-    color: var(--cor-escura);
+    background-color: var(--kraft-bg);
+    background-image: repeating-linear-gradient(
+        135deg,
+        rgba(34, 28, 20, 0.035) 0px,
+        rgba(34, 28, 20, 0.035) 1px,
+        transparent 1px,
+        transparent 15px
+    );
+    color: var(--ink-900);
     line-height: 1.5;
     min-height: 100vh;
 }
@@ -46,40 +70,44 @@ body {
     max-width: 540px;
     margin: 0 auto;
     min-height: 100vh;
-    padding: 16px 16px 110px 16px;
+    padding: 20px 16px 110px 16px;
 }
 
 /* CABEÇALHO */
 .cabecalho-aplicativo {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 0 20px 0;
+    gap: 14px;
+    padding: 4px 2px 22px 2px;
 }
 
 .selo-marca {
     width: 2.75rem;
     height: 2.75rem;
-    background-color: var(--verde-primario);
-    color: #ffffff;
+    background-color: var(--tape);
+    color: #fff9f2;
     font-size: 20px;
-    border-radius: var(--arredondamento-medio);
+    border-radius: var(--r-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+    transform: rotate(-4deg);
+    box-shadow: 3px 3px 0 var(--tape-dark);
+    flex-shrink: 0;
 }
 
 .informacoes-marca h1 {
-    font-size: 1.15rem;
+    font-family: 'Archivo Expanded', sans-serif;
+    font-size: 1.2rem;
     font-weight: 800;
-    color: var(--cor-escura);
-    letter-spacing: -0.3px;
+    color: var(--ink-900);
+    letter-spacing: -0.01em;
 }
 
 .informacoes-marca p {
     font-size: 0.8rem;
-    color: var(--cor-texto);
+    font-weight: 500;
+    color: var(--ink-500);
 }
 
 /* ==========================================================================
@@ -88,53 +116,107 @@ body {
 .conteudo-principal form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
+    counter-reset: passo;
 }
 
 .secao-cartao {
-    background-color: var(--fundo-cartao);
-    border: 1px solid var(--cor-borda);
-    border-radius: var(--arredondamento-grande);
-    padding: 18px 16px;
-    box-shadow: var(--sombra-cartao);
+    position: relative;
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 20px 18px 18px 18px;
+    box-shadow: var(--shadow-card);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
+}
+
+/* Detalhe de "fita" selando o canto de cada cartão (exceto o resumo) */
+.secao-cartao:not(.caixa-resumo)::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    right: 22px;
+    width: 42px;
+    height: 13px;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--tape) 0px,
+        var(--tape) 5px,
+        var(--tape-dark) 5px,
+        var(--tape-dark) 7px
+    );
+    opacity: 0.9;
+    transform: rotate(3deg);
+    border-radius: 0 0 2px 2px;
+}
+
+/* Numeração automática das etapas obrigatórias, tipo carimbo */
+.secao-cartao.campo-obrigatorio {
+    counter-increment: passo;
+}
+
+.campo-obrigatorio .titulo-secao {
+    position: relative;
+    padding-left: 46px;
+    min-height: 34px;
+}
+
+.campo-obrigatorio .titulo-secao::before {
+    content: counter(passo, decimal-leading-zero);
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: var(--ink-900);
+    color: var(--paper);
+    font-family: 'Archivo Expanded', sans-serif;
+    font-weight: 800;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .titulo-secao h2 {
+    font-family: 'Archivo Expanded', sans-serif;
     font-size: 1.05rem;
     font-weight: 700;
-    color: var(--cor-escura);
+    color: var(--ink-900);
+    letter-spacing: -0.01em;
 }
 
 .titulo-secao p {
     font-size: 0.8rem;
-    color: var(--cor-texto);
+    color: var(--ink-500);
+    margin-top: 2px;
 }
 
 /* ==========================================================================
    CAMPOS DE ENTRADA (INPUTS & TEXTAREA)
    ========================================================================== */
 .grupo-input {
-    background-color: var(--fundo-pagina);
-    border: 1.5px solid var(--cor-borda);
-    border-radius: var(--arredondamento-medio);
-    padding: 8px 14px;
+    background-color: var(--paper-alt);
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-md);
+    padding: 9px 14px;
     display: flex;
     align-items: center;
     gap: 12px;
-    transition: all 0.2s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
 .grupo-input:focus-within {
-    border-color: var(--verde-primario);
-    background-color: var(--fundo-cartao);
-    box-shadow: var(--sombra-foco);
+    border-color: var(--tape);
+    background-color: var(--paper);
+    box-shadow: 0 0 0 4px var(--tape-tint);
 }
 
 .icone-input {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     flex-shrink: 0;
 }
 
@@ -145,11 +227,9 @@ body {
 }
 
 .conteudo-input label {
-    font-size: 0.65rem;
-    font-weight: 800;
-    color: var(--cor-texto);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--ink-500);
 }
 
 .conteudo-input input,
@@ -159,13 +239,13 @@ body {
     background: transparent;
     font-size: 0.92rem;
     font-weight: 500;
-    color: var(--cor-escura);
+    color: var(--ink-900);
     width: 100%;
 }
 
 .conteudo-input input::placeholder,
 .conteudo-input textarea::placeholder {
-    color: var(--cor-suave);
+    color: var(--ink-300);
 }
 
 .grupo-textarea {
@@ -177,7 +257,35 @@ body {
     min-height: 80px;
     resize: none;
     margin-top: 4px;
-    line-height: 1.4;
+    line-height: 1.45;
+}
+
+/* Campo de texto que reaproveita a classe .cartao-opcao (qtd. de ajudantes) */
+input.cartao-opcao {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    cursor: text;
+    padding: 12px 14px;
+    border-style: solid;
+    background-color: var(--paper-alt);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-900);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input.cartao-opcao::placeholder {
+    color: var(--ink-300);
+    font-weight: 500;
+}
+
+input.cartao-opcao:focus {
+    outline: none;
+    border-color: var(--tape);
+    background-color: var(--paper);
+    box-shadow: 0 0 0 4px var(--tape-tint);
+    transform: none;
 }
 
 /* ALERTA INFORMATIVO */
@@ -185,11 +293,12 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    background-color: #f1f5f9;
-    border-radius: var(--arredondamento-pequeno);
-    padding: 8px 12px;
+    background-color: var(--tape-tint);
+    border-left: 3px solid var(--tape);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    padding: 9px 12px;
     font-size: 0.75rem;
-    color: var(--cor-texto);
+    color: var(--ink-700);
 }
 
 /* ==========================================================================
@@ -212,16 +321,16 @@ body {
 }
 
 .cartao-opcao {
-    background-color: var(--fundo-pagina);
-    border: 1.5px solid var(--cor-borda);
-    border-radius: var(--arredondamento-medio);
+    background-color: var(--paper-alt);
+    border: 1.5px dashed var(--line);
+    border-radius: var(--r-md);
     padding: 12px 6px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     user-select: none;
 }
 
@@ -230,31 +339,35 @@ body {
 }
 
 .icone-opcao {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     margin-bottom: 4px;
 }
 
 .nome-opcao {
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--cor-escura);
+    color: var(--ink-900);
 }
 
 .cartao-opcao small {
     font-size: 0.65rem;
-    color: var(--cor-texto);
+    color: var(--ink-500);
 }
 
-/* ESTADO SELECIONADO (:has) */
+/* ESTADO SELECIONADO (:has) — vira uma "etiqueta" carimbada */
 .cartao-opcao:has(input:checked) {
-    background-color: var(--verde-claro);
-    border-color: var(--verde-primario);
-    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.12);
-    transform: translateY(-2px);
+    background-color: var(--steel);
+    border: 1.5px solid var(--steel-dark);
+    box-shadow: 2px 2px 0 var(--steel-dark);
+    transform: translateY(-2px) rotate(-1deg);
 }
 
 .cartao-opcao:has(input:checked) .nome-opcao {
-    color: var(--verde-hover);
+    color: #fff9f2;
+}
+
+.cartao-opcao:has(input:checked) small {
+    color: var(--steel-tint);
 }
 
 /* ==========================================================================
@@ -266,33 +379,35 @@ body {
 }
 
 .cabecalho-resumo {
-    background-color: var(--verde-primario);
-    color: #ffffff;
-    padding: 14px 16px;
+    background-color: var(--ink-900);
+    color: var(--paper);
+    padding: 16px 18px;
 }
 
 .cabecalho-resumo span {
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    opacity: 0.9;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: var(--tape);
 }
 
 .cabecalho-resumo h3 {
-    font-size: 1rem;
+    font-family: 'Archivo Expanded', sans-serif;
+    font-size: 1.02rem;
     font-weight: 700;
+    margin-top: 2px;
 }
 
 .lista-resumo {
-    padding: 4px 16px;
+    padding: 4px 18px;
 }
 
 .item-resumo {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--cor-borda);
+    padding: 11px 0;
+    border-bottom: 1px dashed var(--line);
     font-size: 0.82rem;
 }
 
@@ -301,11 +416,15 @@ body {
 }
 
 .item-resumo .rotulo {
-    color: var(--cor-texto);
+    color: var(--ink-500);
+    font-weight: 500;
 }
 
 .item-resumo .valor {
-    color: var(--cor-escura);
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--ink-900);
     text-align: right;
     max-width: 60%;
     word-break: break-word;
@@ -319,10 +438,10 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 252, 246, 0.9);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid var(--cor-borda);
+    border-top: 1px solid var(--line);
     padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
     display: flex;
     justify-content: center;
@@ -333,10 +452,11 @@ body {
     width: 100%;
     max-width: 540px;
     height: 52px;
-    background-color: var(--verde-primario);
-    color: #ffffff;
+    background-color: var(--tape);
+    color: #fff9f2;
     border: none;
-    border-radius: var(--arredondamento-medio);
+    border-radius: var(--r-md);
+    font-family: 'Archivo Expanded', sans-serif;
     font-size: 0.95rem;
     font-weight: 700;
     display: flex;
@@ -344,18 +464,60 @@ body {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
-    transition: all 0.2s ease;
+    box-shadow: 0 4px 0 var(--tape-dark);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
 .botao-principal:active {
-    transform: scale(0.98);
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--tape-dark);
 }
 
 /* RODAPÉ */
 .rodape-aplicativo {
     text-align: center;
     font-size: 0.72rem;
-    color: var(--cor-suave);
-    margin-top: 24px;
+    color: var(--ink-300);
+    margin-top: 26px;
+}
+
+/* ==========================================================================
+   CAMPO OBRIGATORIO E MENSAGEM DE ERRO
+   ========================================================================== */
+.campo-obrigatorio {
+
+}
+
+.secao-erro {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: var(--stamp-red-tint);
+    color: var(--stamp-red);
+    border: 1px solid #e2b4ae;
+    border-radius: var(--r-sm);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.secao-erro::before {
+    content: "⚠ ";
+}
+
+.secao-com-erro {
+    border: 2px solid var(--stamp-red) !important;
+    animation: aviso-tremor 0.3s ease;
+}
+
+@keyframes aviso-tremor {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
 }

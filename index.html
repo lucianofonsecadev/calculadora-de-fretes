@@ -27,7 +27,7 @@
             <form id="formulario-frete">
 
                 <!-- 1. TRAJETO -->
-                <section class="secao-cartao">
+                <section class="secao-cartao campo-obrigatorio">
                     <div class="titulo-secao">
                         <h2>De onde para onde?</h2>
                         <p>Informe os endereços de partida e destino</p>
@@ -37,7 +37,7 @@
                         <div class="icone-input">📍</div>
                         <div class="conteudo-input">
                             <label for="origem">Local de Retirada</label>
-                            <input type="text" id="origem" name="origem" placeholder="Ex: Rua das Flores, 123" required>
+                            <input type="text" id="origem" name="origem" placeholder="Ex: Rua das Flores, 123">
                         </div>
                     </div>
 
@@ -45,7 +45,7 @@
                         <div class="icone-input">🏁</div>
                         <div class="conteudo-input">
                             <label for="destino">Local de Entrega</label>
-                            <input type="text" id="destino" name="destino" placeholder="Ex: Av. Central, 456" required>
+                            <input type="text" id="destino" name="destino" placeholder="Ex: Av. Central, 456" >
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@
                 </section>
 
                 <!-- 2. ITENS -->
-                <section class="secao-cartao">
+                <section class="secao-cartao campo-obrigatorio">
                     <div class="titulo-secao">
                         <h2>O que vamos transportar?</h2>
                         <p>Liste os principais objetos</p>
@@ -74,13 +74,13 @@
                         <div class="icone-input">📦</div>
                         <div class="conteudo-input">
                             <label for="itens">Descrição dos Itens</label>
-                            <textarea id="itens" name="itens" placeholder="Ex: 1 Geladeira, 1 Sofá 3 lugares, 4 caixas médias..." required></textarea>
+                            <textarea id="itens" name="itens" placeholder="Ex: 1 Geladeira, 1 Sofá 3 lugares, 4 caixas médias..."></textarea>
                         </div>
                     </div>
                 </section>
 
                 <!-- 3. ACESSO -->
-                <section class="secao-cartao">
+                <section class="secao-cartao campo-obrigatorio">
                     <div class="titulo-secao">
                         <h2>Como é o acesso?</h2>
                         <p>Selecione as condições dos locais</p>
@@ -111,7 +111,7 @@
                 </section>
 
                 <!-- 4. AJUDA -->
-                <section class="secao-cartao">
+                <section class="secao-cartao campo-obrigatorio">
                     <div class="titulo-secao">
                         <h2>Precisa de ajudante?</h2>
                         <p>Para carregar e descarregar</p>
@@ -134,13 +134,13 @@
                     </div>
                     <div>
                         <input type="text" class="grupo-input conteudo-input cartao-opcao " 
-                        style="outline:none;" required id="obs-ajuda"
+                        style="outline:none;" id="obs-ajuda"
                         placeholder="Quantos ajudantes? O motorista conta como 1 ajudante!">
                     </div>
                 </section>
 
                 <!-- 5. AGENDAMENTO -->
-                <section class="secao-cartao">
+                <section class="secao-cartao campo-obrigatorio">
                     <div class="titulo-secao">
                         <h2>Quando será?</h2>
                         <p>Escolha a melhor data e horário</p>
@@ -151,7 +151,7 @@
                             <div class="icone-input">📅</div>
                             <div class="conteudo-input">
                                 <label for="data">Data</label>
-                                <input type="date" id="data" name="data" required>
+                                <input type="date" id="data" name="data">
                             </div>
                         </div>
 
@@ -159,7 +159,7 @@
                             <div class="icone-input">⏰</div>
                             <div class="conteudo-input">
                                 <label for="hora">Horário</label>
-                                <input type="time" id="hora" name="hora" required>
+                                <input type="time" id="hora" name="hora">
                             </div>
                         </div>
                     </div>
