@@ -92,7 +92,6 @@ checkboxesAcesso.forEach(checkbox => {
 // MANIPULANDO OS INPUT RADIO DA AREA AJUDA
 const radiosAjuda = document.querySelectorAll('input[name="ajuda"]');
 const resumoAjuda = document.getElementById("resumo-ajuda");
-const obsAjuda = document.getElementById("obs-ajuda");
 
 
 // Função para atualizar o texto do resumo
@@ -108,6 +107,18 @@ function atualizarAjuda() {
 // Fica escutando a troca de clique nos botões de rádio
 radiosAjuda.forEach(radio => {
     radio.addEventListener("change", atualizarAjuda);
+});
+
+// Manipulando a area obs-ajuda
+const inputObsAjuda = document.getElementById("obs-ajuda");
+const resumoObsAjuda = document.getElementById("resumo-obs-ajuda")
+
+inputObsAjuda.addEventListener("input", () => {
+    if(inputObsAjuda.value !== "") {
+        resumoObsAjuda.innerText = inputObsAjuda.value;
+    } else {
+        resumoObsAjuda.innerText = "-";
+    }
 });
 
 
@@ -126,8 +137,8 @@ function atualizarDataHora() {
     }
 };
 
-data.addEventListener("change", atualizarDataHora)
-hora.addEventListener("change", atualizarDataHora)
+data.addEventListener("change", atualizarDataHora);
+hora.addEventListener("change", atualizarDataHora);
 
 
 
@@ -144,7 +155,7 @@ formulario.addEventListener("submit", (evento) => {
     const ajuda = document.getElementById("resumo-ajuda").innerText;
     const acesso = document.getElementById("resumo-acesso").innerText;
     const data = document.getElementById("resumo-data-hora").innerText;
-    const obsAjuda = document.getElementById("obs-ajuda").value;
+    const ajudante = document.getElementById("resumo-obs-ajuda").innerText;
 
     const mensagem = `Olá Luciano, Gostaria de solicitar um orçamento! \n
     *Origem:* ${origem}\n
@@ -152,12 +163,13 @@ formulario.addEventListener("submit", (evento) => {
     *Distância:* ${distancia}\n
     *Itens:* ${itens}\n
     *Ajuda:* ${ajuda}\n
+    *Ajudante:* ${ajudante}\n
     *Acesso:* ${acesso}\n 
-    *Observação:* ${obsAjuda}`
+    *Data:* ${data}`
 
     const mensagemFinal = encodeURIComponent(mensagem)
 
     const numero = "5561984184897"
 
     window.open(`https://wa.me/${numero}?text=${mensagemFinal}`, "_blank")
-});
+}); 
