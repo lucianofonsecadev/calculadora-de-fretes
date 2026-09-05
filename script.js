@@ -130,3 +130,120 @@ function atualizarDataHora() {
 
 hora.addEventListener("change", atualizarDataHora);
 data.addEventListener("change", atualizarDataHora);
+
+// FUNÇÃO PARA VERIFICAR SE TEM ERRO EM CADA SEÇÃO
+
+function validarFormulario() {
+    const camposObrigatorios = document.querySelectorAll(".campo-obrigatorio")
+    let formularioValido = true;
+
+    camposObrigatorios.forEach(campo => {
+        let estaValido = true;
+
+        //radio e checkbox
+        const ajudaeAcesso = campo.querySelectorAll(
+            'input[type="radio"], input[type="checkbox"]'
+        );
+
+        if(ajudaeAcesso.length > 0) {
+            const marcada = campo.querySelector(
+                'input[name="ajuda"]:checked, input[name="acesso"]:checked'
+            );
+            if(!marcada) {
+                estaValido = false;
+            };
+        };
+
+        // campos normais
+        const camposNormais = campos.querySelectorAll(
+            'input[type="text"]:not(#obs-ajuda), ' +
+            'input[type="number"], '+
+            'input[type="date"], '+
+            'input[type="time"], '+
+            'textarea'
+        ); 
+
+        camposNormais.forEach(campo => {
+            if(campo.value.trim() === "") {
+                estaValido = false;
+            }
+        });
+
+        // campo ajudantes
+        const radioAjuda = campo.querySelector('input[name="ajuda"]:checked');
+        const obsAjuda = campo.querySelector("#obs-ajuda");
+
+        if(radioAjuda && radioAjuda.value === "Sim, preciso") {
+            if(obsAjuda && obsAjuda.value.trim() === "") {
+                estaValido = false;
+            }
+        };
+        
+        // mensagem de erro 
+        let spanErro = campo.querySelector(".secao-erro");
+        if(estaValido === false) {
+            if(!spanErro) {
+                spanErro = document.createElement("span");
+                spanErro.classList.add("secao-erro");
+                spanErro.innerText = "Preencha este campo para prosseguir!";
+                
+                campo.appendChild(spanErro);
+            };
+            campo.classList.add("secao-com-erro");
+        }
+
+        if(formularioValido) {
+            campo.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        formularioValido = false;
+
+    }) else {
+        if(spanErro) {
+            spanErro.remove();
+        }
+        campo.classList.add("secao-com-erro");
+    }
+
+    return formularioValido;    
+
+}
+// ENVIO DO FORMULÁRIO 
+
+const formulario = document.getElementById("formulario-frete")
+    
+formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault()
+
+    const origem = document.getElementById("resumo-origem").innerText;
+
+    const destino = document.getElementById("resumo-destino").innerText;
+
+    const distancia = document.getElementById("resumo-distancia").innerText;
+
+    const itens = document.getElementById("resumo-itens").innerText;
+
+    const ajuda = document.getElementById("resumo-ajuda").innerText;
+
+    const acesso = document.getElementById("resumo-acesso").innerText;
+
+    const data = document.getElementById("resumo-data-hora").innerText;
+
+    const ajudante = document.getElementById("resumo-obs-ajuda").innerText;
+
+    const mensagem = "Olá Luciano, Gostaria de solicitar um orçamento!\n\n" +
+            `*Origem:* ${origem}\n` +
+            `*Destino:* ${destino}\n` +
+            `*Distância:* ${distancia}\n` +
+            `*Itens:* ${itens}\n` +
+            `*Ajuda:* ${ajuda}\n` +
+            `*Ajudante:* ${ajudante}\n` +
+            `*Acesso:* ${acesso}\n` +
+            `*Data:* ${data}`;
+
+        const mensagemFinal = encodeURIComponent(mensagem);
+
+        const numero = "5561984184897";
+
+        window.open(`https://wa.me/${numero}?text=${mensagemFinal}`, "_blank");
+})
