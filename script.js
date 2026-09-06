@@ -134,79 +134,69 @@ data.addEventListener("change", atualizarDataHora);
 // FUNÇÃO PARA VERIFICAR SE TEM ERRO EM CADA SEÇÃO
 
 function validarFormulario() {
-    const camposObrigatorios = document.querySelectorAll(".campo-obrigatorio")
+    const campoObrigatorio = document.querySelectorAll(".campo-obrigatorio");
     let formularioValido = true;
 
-    camposObrigatorios.forEach(campo => {
-        let estaValido = true;
+    campoObrigatorio.forEach(campo => {
+        estaValido = true;
 
-        //radio e checkbox
-        const ajudaeAcesso = campo.querySelectorAll(
-            'input[type="radio"], input[type="checkbox"]'
+        const acessoAjuda = campo.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+        
+        if(acessoAjuda) {
+            const marcado = campo.querySelector('input[name="ajuda"]:checked', 'input[name="acesso"]:checked');
+
+            if(!acessoAjuda) {
+                estaValido = false;
+            }
+        }
+        
+        const camposNormais = campo.querySelectorAll(
+            'input[type="text"]:not(#obs-ajuda), ' +
+            'input[type="date"], ' +
+            'input[type="time"], ' +
+            'input[type="number"], ' +
+            'textarea' 
         );
 
-        if(ajudaeAcesso.length > 0) {
-            const marcada = campo.querySelector(
-                'input[name="ajuda"]:checked, input[name="acesso"]:checked'
-            );
-            if(!marcada) {
-                estaValido = false;
-            };
-        };
-
-        // campos normais
-        const camposNormais = campos.querySelectorAll(
-            'input[type="text"]:not(#obs-ajuda), ' +
-            'input[type="number"], '+
-            'input[type="date"], '+
-            'input[type="time"], '+
-            'textarea'
-        ); 
-
-        camposNormais.forEach(campo => {
-            if(campo.value.trim() === "") {
+        camposNormais.forEach(campos => {
+            if(campos.value.trim() === "") {
                 estaValido = false;
             }
-        });
+        })
 
-        // campo ajudantes
-        const radioAjuda = campo.querySelector('input[name="ajuda"]:checked');
+        const ajuda = campo.querySelector('input[name="ajuda"]:checked');
         const obsAjuda = campo.querySelector("#obs-ajuda");
 
-        if(radioAjuda && radioAjuda.value === "Sim, preciso") {
-            if(obsAjuda && obsAjuda.value.trim() === "") {
+        if(ajuda && ajuda.value === "Sim, preciso") {
+            if(obsAjuda.value.trim() === "") {
                 estaValido = false;
             }
-        };
-        
-        // mensagem de erro 
+        }
+
         let spanErro = campo.querySelector(".secao-erro");
-        if(estaValido === false) {
+        if(!estaValido){
             if(!spanErro) {
-                spanErro = document.createElement("span");
-                spanErro.classList.add("secao-erro");
-                spanErro.innerText = "Preencha este campo para prosseguir!";
-                
-                campo.appendChild(spanErro);
-            };
-            campo.classList.add("secao-com-erro");
+            spanErro = document.createElement("span");
+            spanErro.classList.add("secao-erro");
+            spanErro.innerText = "Prencha este campo para prosseguir!"
+            campo.appendChild(spanErro);
+            }
+
+            if(formularioValido) {
+                campo.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                })
+            }
+        
+            formularioValido = false;
+        } else {
+            if(spanErro){
+                spanErro.remove()
+            }
+            campo.classList.remove()
         }
-
-        if(formularioValido) {
-            campo.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-
-        formularioValido = false;
-
-    }) else {
-        if(spanErro) {
-            spanErro.remove();
-        }
-        campo.classList.add("secao-com-erro");
-    }
-
-    return formularioValido;    
-
+    })
 }
 // ENVIO DO FORMULÁRIO 
 
